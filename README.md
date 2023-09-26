@@ -20,6 +20,7 @@ To build the signed package, ensure code signing is correctly setup in the Xcode
 ```
 ./build-installer.sh "<your signing identity>" "<app store connet account>" "<team ID>" "<app specific password>"
 ```
+
 ## Extras
 I've included an additional helper script named `prewarm_simulators.sh` with the installer. There's a fun "Simulators sometimes take 1-30 minutes to boot for the first time" bug that this script addresses. This script only needs to be run once when creating a new CI template image.
 
@@ -27,4 +28,4 @@ I've included an additional helper script named `prewarm_simulators.sh` with the
 Please check out FB13187399 and release a fix ASAP ❤️
 
 ## Thanks
-Thanks to Saagar for helping me write goofy yet fun code at 2AM and for everyone who helped test & vet this solution! If you have any questions or comments, feel free to open an issue or reach out to me at [@biscuit@social.lol](https://social.lol/@biscuit).
+Thanks to Saagar for helping me write goofy yet fun code at 2AM and for everyone who helped test & vet this solution! If you have any questions or comments, feel free to open an issue or reach out to me at [@biscuit@social.lol](https://social.lol/@biscuit)
