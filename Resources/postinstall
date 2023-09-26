@@ -1,0 +1,4 @@
+#!/bin/bash
+# Ensure our daemon starts up
+sudo chmod 644 "/Library/LaunchAgents/dev.biscuit.yeetd.plist"
+sudo chown root:wheel "/Library/LaunchAgents/dev.biscuit.yeetd.plist"
