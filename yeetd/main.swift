@@ -27,7 +27,7 @@ enum ProcessConfig {
 
     static var processes: Set<String> {
         guard let userDefaults else {
-            Logger.processManagement.error("Failed userdefaults")
+            Logger.processManagement.error("Failed to find UserDefaults, exiting...")
             fatalError()
         }
         var processes = defaultProcesses
