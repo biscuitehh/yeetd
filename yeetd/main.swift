@@ -8,8 +8,6 @@
 import Foundation
 import OSLog
 
-UserDefaults.standard.setValue(true, forKey: "killapsd")
-
 // TODO: should probably just have these in a file somewhere
 var processesToWatch: Set<String> {
     var processes: Set<String> = [
