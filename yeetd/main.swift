@@ -8,22 +8,28 @@
 import Foundation
 import OSLog
 
+UserDefaults.standard.setValue(true, forKey: "killapsd")
+
 // TODO: should probably just have these in a file somewhere
-// Configuration bits
-let processesToWatch: Set<String> = [
-    "AegirPoster",
-    "InfographPoster",
-    "CollectionsPoster",
-    "ExtragalacticPoster",
-    "KaleidoscopePoster",
-    "EmojiPosterExtension",
-    "AmbientPhotoFramePosterProvider",
-    "PhotosPosterProvider",
-    "AvatarPosterExtension",
-    "GradientPosterExtension",
-    "MonogramPosterExtension",
-    "apsd",
-]
+var processesToWatch: Set<String> {
+    var processes: Set<String> = [
+        "AegirPoster",
+        "InfographPoster",
+        "CollectionsPoster",
+        "ExtragalacticPoster",
+        "KaleidoscopePoster",
+        "EmojiPosterExtension",
+        "AmbientPhotoFramePosterProvider",
+        "PhotosPosterProvider",
+        "AvatarPosterExtension",
+        "GradientPosterExtension",
+        "MonogramPosterExtension"
+    ]
+    if UserDefaults.standard.bool(forKey: "killapsd") {
+        processes.insert("apsd")
+    }
+    return processes
+}
 
 /***
  These processes may cause issues if they're killed, but also tend to consume a good bit of CPU
