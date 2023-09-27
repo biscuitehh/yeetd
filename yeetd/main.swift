@@ -9,8 +9,9 @@ import Foundation
 import OSLog
 
 // TODO: should probably just have these in a file somewhere
-var processesToWatch: Set<String> {
-    var processes: Set<String> = [
+enum ProcessConfig {
+    private static let userDefaults = UserDefaults(suiteName: "dev.biscuit.yeetd")
+    private static let defaultProcesses: Set<String> = [
         "AegirPoster",
         "InfographPoster",
         "CollectionsPoster",
@@ -23,10 +24,18 @@ var processesToWatch: Set<String> {
         "GradientPosterExtension",
         "MonogramPosterExtension"
     ]
-    if UserDefaults.standard.bool(forKey: "killapsd") {
-        processes.insert("apsd")
+
+    static var processes: Set<String> {
+        guard let userDefaults else {
+            Logger.processManagement.error("Failed userdefaults")
+            fatalError()
+        }
+        var processes = defaultProcesses
+        if userDefaults.bool(forKey: "killapsd") {
+            processes.insert("apsd")
+        }
+        return processes
     }
-    return processes
 }
 
 /***
@@ -78,7 +87,7 @@ while(true) {
         let name = String(cString: nameBuffer)
         let path = String(cString: pathBuffer)
 
-        if processesToWatch.contains(where: { $0 == name }) {
+        if ProcessConfig.processes.contains(where: { $0 == name }) {
             // TODO: determine if a process is sleeping and be efficient
             // We need either:
             // 1) get-task-allow entitlement (no SIP)
