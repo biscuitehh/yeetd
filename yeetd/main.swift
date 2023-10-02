@@ -9,21 +9,34 @@ import Foundation
 import OSLog
 
 // TODO: should probably just have these in a file somewhere
-// Configuration bits
-let processesToWatch: Set<String> = [
-    "AegirPoster",
-    "InfographPoster",
-    "CollectionsPoster",
-    "ExtragalacticPoster",
-    "KaleidoscopePoster",
-    "EmojiPosterExtension",
-    "AmbientPhotoFramePosterProvider",
-    "PhotosPosterProvider",
-    "AvatarPosterExtension",
-    "GradientPosterExtension",
-    "MonogramPosterExtension",
-    "apsd",
-]
+enum ProcessConfig {
+    private static let userDefaults = UserDefaults(suiteName: "dev.biscuit.yeetd")
+    private static let defaultProcesses: Set<String> = [
+        "AegirPoster",
+        "InfographPoster",
+        "CollectionsPoster",
+        "ExtragalacticPoster",
+        "KaleidoscopePoster",
+        "EmojiPosterExtension",
+        "AmbientPhotoFramePosterProvider",
+        "PhotosPosterProvider",
+        "AvatarPosterExtension",
+        "GradientPosterExtension",
+        "MonogramPosterExtension"
+    ]
+
+    static var processes: Set<String> {
+        guard let userDefaults else {
+            Logger.processManagement.error("Failed to find UserDefaults, exiting...")
+            fatalError()
+        }
+        var processes = defaultProcesses
+        if userDefaults.bool(forKey: "killapsd") {
+            processes.insert("apsd")
+        }
+        return processes
+    }
+}
 
 /***
  These processes may cause issues if they're killed, but also tend to consume a good bit of CPU
@@ -74,7 +87,7 @@ while(true) {
         let name = String(cString: nameBuffer)
         let path = String(cString: pathBuffer)
 
-        if processesToWatch.contains(where: { $0 == name }) {
+        if ProcessConfig.processes.contains(where: { $0 == name }) {
             // TODO: determine if a process is sleeping and be efficient
             // We need either:
             // 1) get-task-allow entitlement (no SIP)
