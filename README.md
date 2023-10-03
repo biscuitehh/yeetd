@@ -21,10 +21,10 @@ I've included a helper script that I use to build, package, and notarize macOS p
 - A Developer ID Application AND Installer certificate from the Apple Dev Portal.
 - An app specific password to interact with the notarization service.
 
-To build the signed package, ensure code signing is correctly setup in the Xcode proejct and run the following command:
+To build the signed package, ensure code signing is correctly set up in the Xcode project and run the following command:
 
 ```sh
-./build-installer.sh "<your signing identity>" "<app store connet account>" "<team ID>" "<app specific password>"
+./build-installer.sh "<your signing identity>" "<app store connect account>" "<team ID>" "<app specific password>"
 ```
 
 ## Extras
