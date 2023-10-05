@@ -22,7 +22,9 @@ enum ProcessConfig {
         "PhotosPosterProvider",
         "AvatarPosterExtension",
         "GradientPosterExtension",
-        "MonogramPosterExtension"
+        "MonogramPosterExtension",
+        "UnityPosterExtension",
+        "PridePosterExtension",
     ]
 
     static var processes: Set<String> {
@@ -33,6 +35,9 @@ enum ProcessConfig {
         var processes = defaultProcesses
         if userDefaults.bool(forKey: "killapsd") {
             processes.insert("apsd")
+        }
+        if userDefaults.bool(forKey: "killhealthappd") {
+            processes.insert("healthappd")
         }
         return processes
     }
